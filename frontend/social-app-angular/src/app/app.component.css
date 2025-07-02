@@ -1,0 +1,51 @@
+/* Container geral do nav */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #007bff;
+  padding: 0.75rem 1.5rem;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Lado esquerdo */
+.nav-left a {
+  color: white;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-left a:hover {
+  color: #cce5ff;
+}
+
+/* Lado direito */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 600;
+}
+
+.nav-right span {
+  margin-right: 1rem;
+}
+
+/* Links da direita */
+.nav-right a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-right a:hover {
+  color: #cce5ff;
+}
+
+/* Botão logout */
+.nav-right button {
+  background

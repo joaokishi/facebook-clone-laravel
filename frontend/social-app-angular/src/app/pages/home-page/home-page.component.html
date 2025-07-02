@@ -1,0 +1,37 @@
+<div class="feed-container">
+  <h1>Feed</h1>
+
+  <app-post-form (postCreated)="onPostCreated($event)"></app-post-form>
+
+  <div class="tabs">
+    <button
+      [class.active]="activeTab === 'all'"
+      (click)="handleTabChange('all')"
+      class="tab-button"
+    >
+      For You
+    </button>
+    <button
+      [class.active]="activeTab === 'friends'"
+      (click)="handleTabChange('friends')"
+      class="tab-button"
+    >
+      Friends
+    </button>
+  </div>
+
+  <p *ngIf="loading" class="loading-text">Loading posts...</p>
+  <p *ngIf="error" class="error-message">{{ error }}</p>
+
+  <div *ngIf="!loading && posts.length === 0" class="empty-message">
+    <p>No posts to show in this feed.</p>
+  </div>
+
+  <app-post-item
+    *ngFor="let post of posts"
+    [post]="post"
+    (postDeleted)="onPostDeleted($event)"
+    (postUpdated)="onPostUpdated($event)"
+  >
+  </app-post-item>
+</div>

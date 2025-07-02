@@ -1,0 +1,72 @@
+.feed-container {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.feed-container > h1 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #555;
+  border-bottom: 3px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.tab-button:hover {
+  color: #007bff;
+}
+
+.tab-button.active {
+  color: #007bff;
+  border-bottom-color: #007bff;
+  font-weight: 700;
+}
+
+/* Loading e mensagens */
+.loading-text,
+.error-message,
+.empty-message p {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.error-message {
+  color: #d93025;
+  font-weight: 600;
+}
+
+/* Você pode adicionar estilos para <app-post-form> e <app-post-item> se quiser, ex: */
+app-post-form {
+  display: block;
+  margin-bottom: 2rem;
+}
+
+/* Se seus posts forem dentro de <app-post-item>, você estiliza lá. Se quiser, pode estilizar geral aqui: */
+app-post-item {
+  display: block;
+  margin-bottom: 1.5rem;
+}

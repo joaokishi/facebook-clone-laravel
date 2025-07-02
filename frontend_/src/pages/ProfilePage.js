@@ -21,8 +21,7 @@ function ProfilePage() {
     const [hasMore, setHasMore] = useState(true);
     const [friendshipStatus, setFriendshipStatus] = useState('loading');
 
-    const { userId } = useParams();
-    // --- FIX: Extract the primitive ID which is stable ---
+    const { userId } = useParams(); 
     const currentUserId = JSON.parse(localStorage.getItem('user'))?.id;
 
     const fetchAllData = useCallback(async () => {

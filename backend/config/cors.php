@@ -15,13 +15,13 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'], // Add 'api/*'
+    'paths' => ['api/*', 'sanctum/csrf-cookie'], 
     'allowed_methods' => ['*'],
-    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')], // Allow your React dev server
+    'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:4200')], 
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
     'max_age' => 0,
-    'supports_credentials' => true, // Important for Sanctum cookie auth if used
+    'supports_credentials' => true, 
 
 ];

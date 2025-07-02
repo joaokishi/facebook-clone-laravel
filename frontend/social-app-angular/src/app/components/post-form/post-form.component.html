@@ -1,0 +1,12 @@
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="post-form-container">
+    <h3>Create a Post</h3>
+    <p *ngIf="error" class="error-message">{{ error }}</p>
+    
+    <textarea 
+        formControlName="content"
+        placeholder="What's on your mind?"
+        rows="3">
+    </textarea>
+    
+    <button type="submit" [disabled]="postForm.invalid">Post</button>
+</form>

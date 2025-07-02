@@ -1,0 +1,56 @@
+.friends-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.loading-text,
+.error-message,
+.empty-message p {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: #d93025;
+  font-weight: 600;
+}
+
+.friends-list {
+  list-style: none;
+  padding: 0;
+}
+
+.friend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 6px;
+}
+
+.friend-item a {
+  text-decoration: none;
+  background-color: #007bff;
+  color: white;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.friend-item a:hover {
+  background-color: #0056b3;
+}

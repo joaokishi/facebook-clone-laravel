@@ -1,0 +1,32 @@
+<div class="post-item-container">
+    <p class="post-author">
+        <strong>
+            <a [routerLink]="['/profile', post.user.id]">{{ post.user.name }}</a>
+        </strong>
+        <small class="post-date">({{ post.created_at | date:'short' }})</small>
+    </p>
+
+    <div *ngIf="!isEditing">
+        <p class="post-content">{{ post.content }}</p>
+    </div>
+
+    <div *ngIf="isEditing">
+        <textarea [(ngModel)]="editedContent" rows="3"></textarea>
+        <div class="action-buttons">
+            <button (click)="handleUpdate()">Save</button>
+            <button (click)="cancelEditing()">Cancel</button>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <ng-container *ngIf="post.can_delete && !isEditing">
+            <button (click)="startEditing()">Edit</button>
+            <button (click)="handleDelete()">Delete</button>
+        </ng-container>
+        <button (click)="showComments = !showComments">
+            {{ showComments ? 'Hide Comments' : 'Show Comments' }}
+        </button>
+    </div>
+
+    <app-comment-section *ngIf="showComments" [postId]="post.id"></app-comment-section>
+</div>
