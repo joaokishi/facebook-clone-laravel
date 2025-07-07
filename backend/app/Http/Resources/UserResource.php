@@ -18,12 +18,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            
-            // --- THIS IS THE KEY CHANGE ---
-            // Only include the email if the authenticated user is viewing their own profile.
-            // For everyone else, this field will be omitted from the API response.
-            'email' => $this->when(Auth::id() === $this->id, $this->email),
-            
+            'email' => $this->email,
             'joined_at' => $this->created_at->toFormattedDateString(),
         ];
     }

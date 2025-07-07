@@ -1,0 +1,46 @@
+<div class="friends-container">
+
+  <div class="friends-section">
+    <h2>Perfil</h2>
+
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Carregando perfil...</p>
+    </div>
+
+    <div class="header">
+      <div class="user-avatar">
+        <span>{{ getInitials(user.name) }}</span>
+      </div>
+
+      <div class="user-basic-info">
+        <h1>{{ user.name }}</h1>
+      </div>
+
+      <div *ngIf="!isOwnProfile">
+        <button (click)="sendFriendRequest()" class="accept-btn" [disabled]="addingFriend">
+          {{ addingFriend ? 'Enviando...' : 'Adicionar Amigo' }}
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="successMessage" class="success-msg">{{ successMessage }}</div>
+    <div *ngIf="error && !loading" class="error-msg">{{ error }}</div>
+
+    <div class="user-info">
+      <p><strong>Nome:</strong> {{ user.name }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+
+    <h2>Publicações</h2>
+
+    <div *ngIf="posts.length === 0" class="empty-message">
+      <p>Este usuário ainda não fez publicações.</p>
+    </div>
+
+    <app-post-item
+      *ngFor="let post of posts"
+      [post]="post">
+    </app-post-item>
+  </div>
+</div>

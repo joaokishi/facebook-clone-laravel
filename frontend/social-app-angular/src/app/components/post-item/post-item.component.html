@@ -1,0 +1,53 @@
+<mat-card class="post-card">
+  <mat-card-header>
+    <div class="post-header">
+      <span class="user-avatar">{{ getInitials(post.user.name) }}</span>
+
+      <div class="author-info">
+        <a [routerLink]="['/profile', post.user.id]" class="author-name">
+          {{ post.user.name }}
+        </a>
+        <div class="post-date">{{ post.created_at | date : "short" }}</div>
+      </div>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div *ngIf="!isEditing" class="post-content-box">
+      <p>{{ post.content }}</p>
+    </div>
+
+    <div *ngIf="isEditing">
+      <mat-form-field appearance="fill" class="edit-textarea">
+        <textarea matInput [(ngModel)]="editedContent" rows="3"></textarea>
+      </mat-form-field>
+      <div class="action-buttons">
+        <button mat-button color="primary" (click)="handleUpdate()">
+          Salvar
+        </button>
+        <button mat-button color="warn" (click)="cancelEditing()">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <div class="action-buttons">
+      <ng-container *ngIf="post.can_delete && !isEditing">
+        <button mat-button color="accent" (click)="startEditing()">
+          Editar
+        </button>
+        <button mat-button color="warn" (click)="handleDelete()">
+          Excluir
+        </button>
+      </ng-container>
+      <button mat-button (click)="showComments = !showComments">
+        {{ showComments ? "Ocultar Comentários" : "Mostrar Comentários" }}
+      </button>
+    </div>
+  </mat-card-actions>
+
+  <app-comment-section *ngIf="showComments" [postId]="post.id">
+  </app-comment-section>
+</mat-card>
