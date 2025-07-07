@@ -11,7 +11,6 @@ use App\Http\Resources\UserResource;
 
 class FriendshipController extends Controller
 {
-    // Enviar solicitação de amizade
     public function sendRequest(User $user)
     {
         $requester = Auth::user();
@@ -46,7 +45,6 @@ class FriendshipController extends Controller
         return response()->json(['message' => 'Friend request sent.']);
     }
 
-    // Aceitar solicitação de amizade
     public function acceptRequest(User $user)
     {
         $addressee = Auth::user();
@@ -64,7 +62,6 @@ class FriendshipController extends Controller
         return response()->json(['message' => 'Friend request accepted.']);
     }
 
-    // Rejeitar solicitação de amizade
     public function rejectRequest(User $user)
     {
         $addressee = Auth::user();
@@ -82,7 +79,6 @@ class FriendshipController extends Controller
         return response()->json(['message' => 'Friend request rejected.']);
     }
 
-    // Remover amizade
     public function unfriend(User $user)
     {
         $currentUser = Auth::user();
@@ -108,7 +104,6 @@ class FriendshipController extends Controller
         return response()->json(['message' => 'Unfriended successfully.']);
     }
 
-    // Retorna os amigos aceitos
     public function getFriends()
     {
         $currentUserId = Auth::id();
@@ -134,24 +129,20 @@ class FriendshipController extends Controller
         ]);
     }
 
-    // Retorna solicitações recebidas (pendentes)
     public function getPendingRequests()
     {
         try {
             $currentUserId = Auth::id();
 
-            // Buscar IDs dos usuários que enviaram solicitações
             $requesterIds = DB::table('friendships')
                 ->where('addressee_id', $currentUserId)
                 ->where('status', 'pending')
                 ->pluck('requester_id');
 
-            // Se não há solicitações, retornar array vazio
             if ($requesterIds->isEmpty()) {
                 return response()->json([]);
             }
 
-            // Buscar dados dos usuários
             $users = User::whereIn('id', $requesterIds)->get();
 
             return response()->json($users->map(function ($user) {
@@ -169,24 +160,21 @@ class FriendshipController extends Controller
         }
     }
 
-    // Método adicional para obter solicitações enviadas (opcional)
     public function getSentRequests()
     {
         try {
             $currentUserId = Auth::id();
 
-            // Buscar IDs dos usuários para quem enviamos solicitações
             $addresseeIds = DB::table('friendships')
                 ->where('requester_id', $currentUserId)
                 ->where('status', 'pending')
                 ->pluck('addressee_id');
 
-            // Se não há solicitações, retornar array vazio
             if ($addresseeIds->isEmpty()) {
                 return response()->json([]);
             }
 
-            // Buscar dados dos usuários
+
             $users = User::whereIn('id', $addresseeIds)->get();
 
             return response()->json($users->map(function ($user) {

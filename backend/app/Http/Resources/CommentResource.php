@@ -18,7 +18,7 @@ class CommentResource extends JsonResource
                 'id' => $this->user->id,
                 'name' => $this->user->name,
             ],
-            // Add a flag to indicate if the authenticated user can delete this comment
+
             'can_delete' => Auth::id() === $this->user_id,
         ];
     }

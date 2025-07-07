@@ -60,15 +60,11 @@ class PostController extends Controller
     {
         $user = Auth::user();
 
-        // Get an array of friend IDs
         $friendIds = $user->friends()->pluck('id');
 
-        // Add the current user's own ID to the list so they see their own posts too
         $friendIds->push($user->id);
-
-        // Fetch posts where the user_id is in our list of friends
         $posts = Post::whereIn('user_id', $friendIds)
-                     ->with('user') // Eager load user to prevent N+1 queries
+                     ->with('user') 
                      ->latest()
                      ->paginate(10);
 

@@ -22,30 +22,25 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    // MÉTODO CORRIGIDO - Agora retorna uma Query Builder Collection
     public function friends()
     {
-        // Busca amigos onde o usuário atual é o requester
         $friendsAsRequester = DB::table('friendships')
             ->join('users', 'users.id', '=', 'friendships.addressee_id')
             ->where('friendships.requester_id', $this->id)
             ->where('friendships.status', 'accepted')
             ->select('users.*');
 
-        // Busca amigos onde o usuário atual é o addressee
         $friendsAsAddressee = DB::table('friendships')
             ->join('users', 'users.id', '=', 'friendships.requester_id')
             ->where('friendships.addressee_id', $this->id)
             ->where('friendships.status', 'accepted')
             ->select('users.*');
 
-        // Une as duas consultas
         return $friendsAsRequester->union($friendsAsAddressee)->get()->map(function ($userData) {
             return User::find($userData->id);
         });
     }
 
-    // Método alternativo mais simples (recomendado)
     public function getAllFriends()
     {
         $friendIds = DB::table('friendships')
@@ -64,14 +59,12 @@ class User extends Authenticatable
         return User::whereIn('id', $friendIds)->get();
     }
 
-    // Get pending friend requests this user has sent
     public function pendingFriendRequests()
     {
         return $this->belongsToMany(User::class, 'friendships', 'requester_id', 'addressee_id')
             ->wherePivot('status', 'pending');
     }
 
-    // Get friend requests that this user has received
     public function friendRequestsReceived()
     {
         return $this->belongsToMany(User::class, 'friendships', 'addressee_id', 'requester_id')

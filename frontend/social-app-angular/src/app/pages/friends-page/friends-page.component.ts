@@ -19,7 +19,6 @@ export class FriendsPageComponent implements OnInit {
   loadingRequests = false;
   requestError: string | null = null;
   
-  // Estados para controle de processamento
   processingRequest: number | null = null;
   processingFriend: number | null = null;
 
@@ -32,17 +31,11 @@ export class FriendsPageComponent implements OnInit {
     this.loadInitialData();
   }
 
-  /**
-   * Carrega dados iniciais (amigos e solicitações)
-   */
   loadInitialData(): void {
     this.fetchFriends();
     this.loadRequests();
   }
 
-  /**
-   * Busca lista de amigos
-   */
   fetchFriends(): void {
     this.loading = true;
     this.error = null;
@@ -60,9 +53,6 @@ export class FriendsPageComponent implements OnInit {
     });
   }
 
-  /**
-   * Carrega solicitações de amizade recebidas
-   */
   loadRequests(): void {
     this.loadingRequests = true;
     this.requestError = null;
@@ -80,9 +70,6 @@ export class FriendsPageComponent implements OnInit {
     });
   }
 
-  /**
-   * Aceita uma solicitação de amizade
-   */
   acceptRequest(userId: number): void {
     if (this.processingRequest === userId) return;
 
@@ -90,15 +77,12 @@ export class FriendsPageComponent implements OnInit {
 
     this.apiService.acceptFriendRequest(userId).subscribe({
       next: (response) => {
-        // Remove a solicitação da lista
         this.requests = this.requests.filter(r => r.id !== userId);
         
-        // Recarrega a lista de amigos para incluir o novo amigo
         this.fetchFriends();
         
         this.processingRequest = null;
         
-        // Feedback visual opcional
         this.showSuccessMessage('Solicitação aceita com sucesso!');
       },
       error: (err) => {
@@ -109,9 +93,6 @@ export class FriendsPageComponent implements OnInit {
     });
   }
 
-  /**
-   * Rejeita uma solicitação de amizade
-   */
   rejectRequest(userId: number): void {
     if (this.processingRequest === userId) return;
 
@@ -119,7 +100,6 @@ export class FriendsPageComponent implements OnInit {
 
     this.apiService.rejectFriendRequest(userId).subscribe({
       next: (response) => {
-        // Remove a solicitação da lista
         this.requests = this.requests.filter(r => r.id !== userId);
         this.processingRequest = null;
         
@@ -133,9 +113,6 @@ export class FriendsPageComponent implements OnInit {
     });
   }
 
-  /**
-   * Remove uma amizade
-   */
   unfriend(userId: number): void {
     if (this.processingFriend === userId) return;
 
@@ -160,23 +137,14 @@ export class FriendsPageComponent implements OnInit {
     });
   }
 
-  /**
-   * Navega para o perfil do usuário
-   */
   viewProfile(userId: number): void {
     this.router.navigate(['/profile', userId]);
   }
 
-  /**
-   * Atualiza todas as informações
-   */
   refreshAll(): void {
     this.loadInitialData();
   }
 
-  /**
-   * Gera iniciais do nome do usuário para avatar
-   */
   getInitials(name: string): string {
     if (!name) return '?';
     
@@ -187,21 +155,12 @@ export class FriendsPageComponent implements OnInit {
     return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
   }
 
-  /**
-   * Exibe mensagem de sucesso (implementação básica)
-   */
   private showSuccessMessage(message: string): void {
-    // Implementação básica - pode ser substituída por um toast/snackbar
     console.log('Sucesso:', message);
-    // Para uma implementação mais robusta, considere usar Angular Material ou similar
   }
 
-  /**
-   * Exibe mensagem de erro (implementação básica)
-   */
   private showErrorMessage(message: string): void {
-    // Implementação básica - pode ser substituída por um toast/snackbar
     console.error('Erro:', message);
-    alert(message); // Temporário - substitua por uma solução mais elegante
+    alert(message); 
   }
 }

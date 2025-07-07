@@ -20,12 +20,8 @@ class CommentController extends Controller
     {
         $request->validate(['content' => 'required|string']);
 
-        // Optional: Check if users are friends before allowing comments
         $postOwner = $post->user;
         $currentUser = Auth::user();
-        if (!$currentUser->friends()->contains($postOwner) && $currentUser->id !== $postOwner->id) {
-            // return response()->json(['message' => 'You can only comment on your friends\' posts.'], 403);
-        }
 
         $comment = $post->comments()->create([
             'user_id' => $currentUser->id,

@@ -1,10 +1,10 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core'; // Importe Inject e PLATFORM_ID
-import { isPlatformBrowser } from '@angular/common'; // Importe a função de verificação
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core'; 
+import { isPlatformBrowser } from '@angular/common'; 
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
-// Interfaces (sem alteração)
+
 export interface User {
   id: number;
   name: string;

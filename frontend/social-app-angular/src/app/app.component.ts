@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necessário para *ngIf, etc.
-import { RouterLink, RouterOutlet } from '@angular/router'; // Necessário para routerLink e router-outlet
+import { CommonModule } from '@angular/common'; 
+import { RouterLink, RouterOutlet } from '@angular/router'; 
 import { Observable } from 'rxjs';
 
 import { AuthService, User } from './services/auth.service';

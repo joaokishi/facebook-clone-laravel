@@ -1,37 +1,32 @@
-/* src/styles.css */
 
-/* Reset básico e configurações do corpo da página */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  background-color: #f4f7f9; /* Um cinza bem claro para o fundo */
-  color: #333; /* Cor do texto principal */
+  background-color: #f4f7f9; 
+  color: #333; 
 }
 
-/* Estilos para os links */
 a {
-  color: #007bff; /* Azul padrão para links */
-  text-decoration: none; /* Remove o sublinhado */
+  color: #007bff; 
+  text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+  text-decoration: underline; 
 }
 
-/* Títulos */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   color: #1a202c;
 }
 
-/* Uma classe container para centralizar o conteúdo */
 .container {
   max-width: 1100px;
-  margin: 0 auto; /* Centraliza o container */
+  margin: 0 auto; 
   padding: 20px;
 }
 
-/* Estilos básicos para botões */
+
 button {
   background-color: #007bff;
   color: white;
@@ -45,7 +40,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3; /* Um azul mais escuro no hover */
+  background-color: #0056b3; 
 }
 
 button:disabled {
@@ -54,7 +49,6 @@ button:disabled {
 }
 
 
-/* Estilos básicos para inputs e textareas */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -64,11 +58,11 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
-  box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+  box-sizing: border-box; 
 }
 
 textarea {
-    resize: vertical; /* Permite que o usuário redimensione a altura */
+    resize: vertical; 
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -21,21 +21,20 @@
   color: #888;
 }
 
-/* NOVO LAYOUT FLEX PARA CADA COMENTÁRIO */
 .comment-layout {
   display: flex;
-  justify-content: space-between; /* Empurra o corpo e as ações para os lados opostos */
-  align-items: center; /* Alinha verticalmente */
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   gap: 10px;
 }
 
 .comment-body {
-  flex-grow: 1; /* Faz o corpo do comentário ocupar o espaço disponível */
+  flex-grow: 1; 
 }
 
 .comment-actions {
-  flex-shrink: 0; /* Impede que a área de ações encolha */
+  flex-shrink: 0; 
 }
 
 .comment-author a {

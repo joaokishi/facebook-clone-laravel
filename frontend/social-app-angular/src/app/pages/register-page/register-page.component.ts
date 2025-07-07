@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms'; // Imports simplificados
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms'; 
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -32,7 +32,7 @@ export class RegisterPageComponent {
     this.error = null;
 
     this.authService.register(this.registerForm.value).subscribe({
-      next: () => this.router.navigate(['/login']),
+      next: () => this.router.navigate(['/home']),
       error: (err) => {
         if (err.status === 422 && err.error.errors) {
           const errorMessages = Object.values(err.error.errors) as string[][];

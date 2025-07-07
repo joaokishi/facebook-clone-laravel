@@ -29,6 +29,6 @@ export const routes: Routes = [
       }
     ]
   },
-  // Rota coringa para redirecionar para a home
+
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

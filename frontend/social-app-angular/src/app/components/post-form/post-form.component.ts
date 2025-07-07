@@ -11,8 +11,6 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./post-form.component.css']
 })
 export class PostFormComponent {
-  // @Output é como o componente "grita" para o pai.
-  // Aqui, ele vai "gritar" o novo post que foi criado.
   @Output() postCreated = new EventEmitter<any>();
 
   postForm: FormGroup;
@@ -35,8 +33,8 @@ export class PostFormComponent {
 
     this.apiService.createPost(this.postForm.value).subscribe({
       next: (response) => {
-        this.postCreated.emit(response.data); // Emite o evento com os dados do novo post
-        this.postForm.reset(); // Limpa o formulário
+        this.postCreated.emit(response.data); 
+        this.postForm.reset();
       },
       error: (err) => {
         this.error = err.error?.message || 'Failed to create post.';

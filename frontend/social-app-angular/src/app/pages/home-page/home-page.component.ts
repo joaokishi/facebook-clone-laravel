@@ -17,8 +17,6 @@ export class HomePageComponent implements OnInit {
   error: string | null = null;
   activeTab: 'all' | 'friends' = 'all';
 
-  // Note que não há mais paginação aqui para simplificar, mas pode ser adicionada como no React
-  
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
@@ -53,7 +51,7 @@ export class HomePageComponent implements OnInit {
   }
 
   onPostCreated(newPost: any): void {
-    this.posts.unshift(newPost); // Adiciona o novo post no início do array
+    this.posts.unshift(newPost);
   }
 
   onPostDeleted(postId: number): void {
