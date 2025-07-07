@@ -1,18 +1,18 @@
 <nav>
   <div class="nav-left">
-    <a routerLink="/">Home</a>
-    <a *ngIf="isAuthenticated" routerLink="/friends">Friends</a>
+    <a routerLink="/">Página principal</a>
+    <a *ngIf="isAuthenticated" routerLink="/friends">Amigos</a>
   </div>
   <div class="nav-right">
     <ng-container *ngIf="currentUser$ | async as user; else guestView">
-      <span>Welcome, {{ user.name }}!</span>
-      <a [routerLink]="['/profile', user.id]">Profile</a>
-      <button (click)="logout()">Logout</button>
+      <span>Bem-vindo, {{ user.name }}!</span>
+      <a [routerLink]="['/profile', user.id]">Perfil</a>
+      <button (click)="logout()">Sair</button>
     </ng-container>
     
     <ng-template #guestView>
       <a routerLink="/login">Login</a>
-      <a routerLink="/register">Register</a>
+      <a routerLink="/register">Registrar</a>
     </ng-template>
   </div>
 </nav>

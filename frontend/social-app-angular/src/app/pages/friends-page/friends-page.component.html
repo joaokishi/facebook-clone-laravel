@@ -1,17 +1,104 @@
 <div class="friends-container">
-  <h1>My Friends</h1>
 
-  <p *ngIf="loading" class="loading-text">Loading friends...</p>
-  <p *ngIf="error" class="error-message">{{ error }}</p>
+  <div class="requests-section">
+    <h2>Solicitações Recebidas</h2>
 
-  <div *ngIf="!loading && friends.length === 0" class="empty-message">
-    <p>You don't have any friends yet.</p>
+    <div *ngIf="loadingRequests" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Carregando solicitações...</p>
+    </div>
+
+    <div *ngIf="requestError" class="error-message">
+      <i class="error-icon">⚠️</i>
+      <p>{{ requestError }}</p>
+      <button (click)="loadRequests()" class="retry-btn">Tentar Novamente</button>
+    </div>
+
+    <div *ngIf="!loadingRequests && !requestError && requests.length === 0" class="empty-message">
+      <p>Você não tem novas solicitações de amizade.</p>
+    </div>
+
+    <div *ngIf="!loadingRequests && !requestError && requests.length > 0" class="requests-list">
+      <div *ngFor="let request of requests" class="request-item">
+        <div class="request-info">
+          <div class="user-avatar">
+            <span>{{ getInitials(request.name) }}</span>
+          </div>
+          <div class="user-details">
+            <h4>{{ request.name }}</h4>
+            <p class="request-time">Solicitação enviada</p>
+          </div>
+        </div>
+        <div class="request-actions">
+          <button 
+            (click)="acceptRequest(request.id)" 
+            class="accept-btn"
+            [disabled]="processingRequest === request.id">
+            <span *ngIf="processingRequest !== request.id">Aceitar</span>
+            <span *ngIf="processingRequest === request.id">Aceitando...</span>
+          </button>
+          <button 
+            (click)="rejectRequest(request.id)" 
+            class="reject-btn"
+            [disabled]="processingRequest === request.id">
+            <span *ngIf="processingRequest !== request.id">Rejeitar</span>
+            <span *ngIf="processingRequest === request.id">Rejeitando...</span>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <ul *ngIf="!loading && friends.length > 0" class="friends-list">
-    <li *ngFor="let friend of friends" class="friend-item">
-      <span>{{ friend.name }}</span>
-      <a [routerLink]="['/profile', friend.id]">View Profile</a>
-    </li>
-  </ul>
+  <div class="friends-section">
+    <h2>Meus Amigos ({{ friends.length }})</h2>
+
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Carregando amigos...</p>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      <i class="error-icon">⚠️</i>
+      <p>{{ error }}</p>
+      <button (click)="fetchFriends()" class="retry-btn">Tentar Novamente</button>
+    </div>
+
+    <div *ngIf="!loading && !error && friends.length === 0" class="empty-message">
+      <p>Você ainda não tem amigos.</p>
+      <p class="empty-subtitle">Envie solicitações de amizade para começar a se conectar!</p>
+    </div>
+
+    <div *ngIf="!loading && !error && friends.length > 0" class="friends-grid">
+      <div *ngFor="let friend of friends" class="friend-card">
+        <div class="friend-avatar">
+          <span>{{ getInitials(friend.name) }}</span>
+        </div>
+        <div class="friend-info">
+          <h4>{{ friend.name }}</h4>
+          <p class="friend-email">{{ friend.email }}</p>
+        </div>
+        <div class="friend-actions">
+          <button 
+            (click)="viewProfile(friend.id)" 
+            class="view-profile-btn"
+            title="Ver perfil">
+            Perfil
+          </button>
+          <button 
+            (click)="unfriend(friend.id)" 
+            class="unfriend-btn"
+            [disabled]="processingFriend === friend.id"
+            title="Remover amizade">
+            Remover amizade
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="refresh-container">
+    <button (click)="refreshAll()" class="refresh-btn" [disabled]="loading || loadingRequests">
+      Atualizar
+    </button>
+  </div>
 </div>

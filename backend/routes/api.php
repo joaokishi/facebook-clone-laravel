@@ -3,8 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\FriendshipController; // <-- Add this
-use App\Http\Controllers\Api\CommentController;    // <-- Add this
+use App\Http\Controllers\Api\FriendshipController;
+use App\Http\Controllers\Api\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,17 +19,24 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 
-    Route::apiResource('posts', PostController::class)->except(['index']); // We can have separate feeds later
-    Route::get('/feed', [PostController::class, 'index']); // Example for a "friends feed" later
+    // Posts
+    Route::apiResource('posts', PostController::class)->except(['index']);
+    Route::get('/feed', [PostController::class, 'index']);
+    Route::get('/feed/friends', [PostController::class, 'friendsFeed']); // Se existir
 
     // Friendship Routes
-    Route::get('/friends', [FriendshipController::class, 'getFriends']);
-    Route::get('/friends/pending', [FriendshipController::class, 'getPendingRequests']);
-    Route::post('/friends/request/{user}', [FriendshipController::class, 'sendRequest']);
-    Route::post('/friends/accept/{user}', [FriendshipController::class, 'acceptRequest']);
-    Route::post('/friends/reject/{user}', [FriendshipController::class, 'rejectRequest']);
-    Route::delete('/friends/unfriend/{user}', [FriendshipController::class, 'unfriend']);
-    Route::get('/feed/friends', [PostController::class, 'friendsFeed']);
+    Route::prefix('friends')->group(function () {
+        // Enviar, aceitar e rejeitar solicitações
+        Route::post('/request/{user}', [FriendshipController::class, 'sendRequest']);
+        Route::post('/accept/{user}', [FriendshipController::class, 'acceptRequest']);
+        Route::delete('/reject/{user}', [FriendshipController::class, 'rejectRequest']);
+        Route::delete('/remove/{user}', [FriendshipController::class, 'unfriend']);
+        
+        // Listar amigos e solicitações
+        Route::get('/', [FriendshipController::class, 'getFriends']); // Lista de amigos
+        Route::get('/requests', [FriendshipController::class, 'getPendingRequests']); // Solicitações recebidas
+        Route::get('/sent', [FriendshipController::class, 'getSentRequests']); // Solicitações enviadas (opcional)
+    });
     
     // Comment Routes
     Route::get('/posts/{post}/comments', [CommentController::class, 'index']);

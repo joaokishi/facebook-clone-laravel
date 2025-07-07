@@ -4,19 +4,38 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { CommentSectionComponent } from '../comment-section/comment-section.component';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+
 
 @Component({
   selector: 'app-post-item',
   standalone: true,
-  imports: [CommonModule, RouterLink, CommentSectionComponent, FormsModule], // Importa o CommentSectionComponent
+  imports: [
+  CommonModule,
+  RouterLink,
+  CommentSectionComponent,
+  FormsModule,
+  MatCardModule,
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatListModule,
+  MatIconModule,
+  MatTooltipModule
+  ],
   templateUrl: './post-item.component.html',
   styleUrls: ['./post-item.component.css']
 })
 export class PostItemComponent {
-  // @Input recebe dados do componente pai (HomePage)
   @Input() post: any;
 
-  // @Outputs para avisar o pai sobre eventos
   @Output() postDeleted = new EventEmitter<number>();
   @Output() postUpdated = new EventEmitter<any>();
 
@@ -26,18 +45,15 @@ export class PostItemComponent {
 
   constructor(private apiService: ApiService) {}
 
-  // Quando o usuário clica em "Edit", preparamos o formulário
   startEditing(): void {
     this.isEditing = true;
     this.editedContent = this.post.content;
   }
 
-  // Cancela a edição
   cancelEditing(): void {
     this.isEditing = false;
   }
 
-  // Salva a edição
   handleUpdate(): void {
     this.apiService.updatePost(this.post.id, { content: this.editedContent }).subscribe({
       next: (response) => {
@@ -50,7 +66,6 @@ export class PostItemComponent {
     });
   }
 
-  // Deleta o post
   handleDelete(): void {
     if (window.confirm("Are you sure you want to delete this post?")) {
       this.apiService.deletePost(this.post.id).subscribe({
@@ -62,5 +77,15 @@ export class PostItemComponent {
         }
       });
     }
+  }
+
+  getInitials(name: string): string {
+    if (!name) return '?';
+    
+    const names = name.trim().split(' ');
+    const firstName = names[0];
+    const lastName = names.length > 1 ? names[names.length - 1] : '';
+    
+    return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
   }
 }

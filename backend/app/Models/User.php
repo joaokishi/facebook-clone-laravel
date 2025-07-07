@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -16,26 +17,51 @@ class User extends Authenticatable
 
     public function posts() { return $this->hasMany(Post::class); }
 
-    // *** ADD THESE METHODS ***
-
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    // This gets all friendships where the user is either the requester or the addressee.
+    // MÉTODO CORRIGIDO - Agora retorna uma Query Builder Collection
     public function friends()
     {
-        // Get friends where this user was the requester and the request was accepted.
-        $friends = $this->belongsToMany(User::class, 'friendships', 'requester_id', 'addressee_id')
-            ->wherePivot('status', 'accepted');
+        // Busca amigos onde o usuário atual é o requester
+        $friendsAsRequester = DB::table('friendships')
+            ->join('users', 'users.id', '=', 'friendships.addressee_id')
+            ->where('friendships.requester_id', $this->id)
+            ->where('friendships.status', 'accepted')
+            ->select('users.*');
 
-        // Get friends where this user was the addressee and the request was accepted.
-        $friendOf = $this->belongsToMany(User::class, 'friendships', 'addressee_id', 'requester_id')
-            ->wherePivot('status', 'accepted');
+        // Busca amigos onde o usuário atual é o addressee
+        $friendsAsAddressee = DB::table('friendships')
+            ->join('users', 'users.id', '=', 'friendships.requester_id')
+            ->where('friendships.addressee_id', $this->id)
+            ->where('friendships.status', 'accepted')
+            ->select('users.*');
 
-        // Merge the two collections and return
-        return $friends->get()->merge($friendOf->get());
+        // Une as duas consultas
+        return $friendsAsRequester->union($friendsAsAddressee)->get()->map(function ($userData) {
+            return User::find($userData->id);
+        });
+    }
+
+    // Método alternativo mais simples (recomendado)
+    public function getAllFriends()
+    {
+        $friendIds = DB::table('friendships')
+            ->where('status', 'accepted')
+            ->where(function ($query) {
+                $query->where('requester_id', $this->id)
+                      ->orWhere('addressee_id', $this->id);
+            })
+            ->get()
+            ->map(function ($friendship) {
+                return $friendship->requester_id == $this->id 
+                    ? $friendship->addressee_id 
+                    : $friendship->requester_id;
+            });
+
+        return User::whereIn('id', $friendIds)->get();
     }
 
     // Get pending friend requests this user has sent

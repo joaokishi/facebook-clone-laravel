@@ -1,22 +1,50 @@
-<div class="comments-container">
-    <form [formGroup]="commentForm" (ngSubmit)="onCommentSubmit()" class="comment-form">
-    <input
-        class="mainform" 
-        type="text" 
-        formControlName="content" 
-        placeholder="Write a comment..." />
-    <button type="submit" [disabled]="commentForm.invalid">Post</button>
+<mat-card class="comments-wrapper">
+  <mat-card-content>
+    <form
+      class="comment-form"
+      [formGroup]="commentForm"
+      (ngSubmit)="addNewComment()"
+    >
+      <mat-form-field appearance="outline" class="comment-input">
+        <mat-label>Escreva um comentário...</mat-label>
+        <textarea matInput formControlName="content" rows="2"></textarea>
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="commentForm.invalid"
+      >
+        Comentar
+      </button>
     </form>
-    <div *ngIf="loading">Loading comments...</div>
-    <div class="comment-list">
-        <div *ngFor="let comment of comments" class="comment-item">
-            <strong>
-                <a [routerLink]="['/profile', comment.user.id]">{{ comment.user.name }}</a>
-            </strong>
-            <span>{{ comment.content }}</span>
-            <button *ngIf="comment.can_delete" (click)="deleteComment(comment.id)" class="delete-comment-btn">
-                Delete
-            </button>
-        </div>
+
+    <div *ngIf="isLoading" class="loading-spinner">
+      <mat-spinner diameter="40"></mat-spinner>
     </div>
-</div>
+
+    <mat-list *ngIf="!isLoading && comments.length > 0">
+      <mat-list-item *ngFor="let comment of comments" class="comment-item">
+        <div matListItemTitle class="comment-author">
+          <a [routerLink]="['/profile', comment.user.id]">{{
+            comment.user.name
+          }}</a>
+        </div>
+        <p matListItemLine class="comment-text">{{ comment.content }}</p>
+
+        <button
+          mat-button color="warn"
+          *ngIf="comment.can_delete"
+          (click)="deleteComment(comment.id)"
+          class="delete-button"
+        >
+          Deletar
+        </button>
+      </mat-list-item>
+    </mat-list>
+
+    <p *ngIf="!isLoading && comments.length === 0" class="no-comments">
+      Nenhum comentário ainda. Seja o primeiro!
+    </p>
+  </mat-card-content>
+</mat-card>

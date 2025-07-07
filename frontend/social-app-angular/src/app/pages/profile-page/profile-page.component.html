@@ -1,28 +1,41 @@
-<div class="profile-container">
-  <h1>{{user.name}}</h1>
-  
-<div *ngIf="!isOwnProfile">
-  <button (click)="sendFriendRequest()" [disabled]="addingFriend">
-    {{ addingFriend ? 'Sending...' : 'Add Friend' }}
-  </button>
-</div>
+<div class="friends-container">
 
-<div *ngIf="successMessage" class="success-msg">{{ successMessage }}</div>
-<div *ngIf="error" class="error-msg">{{ error }}</div>
+  <div class="friends-section">
+    <h2>Perfil</h2>
 
-  <p *ngIf="loading" class="loading-text">Loading profile...</p>
-  <p *ngIf="error" class="error-message">{{ error }}</p>
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Carregando perfil...</p>
+    </div>
 
-  <div *ngIf="!loading && user">
+    <div class="header">
+      <div class="user-avatar">
+        <span>{{ getInitials(user.name) }}</span>
+      </div>
+
+      <div class="user-basic-info">
+        <h1>{{ user.name }}</h1>
+      </div>
+
+      <div *ngIf="!isOwnProfile">
+        <button (click)="sendFriendRequest()" class="accept-btn" [disabled]="addingFriend">
+          {{ addingFriend ? 'Enviando...' : 'Adicionar Amigo' }}
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="successMessage" class="success-msg">{{ successMessage }}</div>
+    <div *ngIf="error && !loading" class="error-msg">{{ error }}</div>
+
     <div class="user-info">
-      <p><strong>Name:</strong> {{ user.name }}</p>
+      <p><strong>Nome:</strong> {{ user.name }}</p>
       <p><strong>Email:</strong> {{ user.email }}</p>
     </div>
 
-    <h2>User Posts</h2>
+    <h2>Publicações</h2>
 
     <div *ngIf="posts.length === 0" class="empty-message">
-      <p>This user has no posts.</p>
+      <p>Este usuário ainda não fez publicações.</p>
     </div>
 
     <app-post-item

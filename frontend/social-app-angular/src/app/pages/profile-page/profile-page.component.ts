@@ -42,8 +42,19 @@ export class ProfilePageComponent implements OnInit {
     this.isOwnProfile = loggedInId === this.userId;
 
     this.apiService.getUserProfile(this.userId).subscribe({
-      next: (res) => this.user = res.data,
-      error: () => this.error = 'Failed to load profile.'
+      next: (res) => {
+        this.user = res.data;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Failed to load profile.';
+        this.loading = false;
+      }
+    });
+
+    this.apiService.getUserPosts(this.userId).subscribe({
+      next: (res) => this.posts = res.data,
+      error: () => console.error('Failed to load posts')
     });
   }
 
@@ -62,5 +73,15 @@ export class ProfilePageComponent implements OnInit {
         this.addingFriend = false;
       }
     });
+  }
+
+  getInitials(name: string): string {
+    if (!name) return '?';
+    
+    const names = name.trim().split(' ');
+    const firstName = names[0];
+    const lastName = names.length > 1 ? names[names.length - 1] : '';
+    
+    return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
   }
 }

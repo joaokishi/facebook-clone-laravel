@@ -1,179 +1,67 @@
-.post-item-container {
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-
-.post-author {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
-.post-author strong {
-    font-size: 1.1rem;
-    color: #111827;
-}
-
-.post-author a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.2s ease-in-out;
-}
-
-.post-author a:hover {
-    color: #4f46e5;
-}
-
-.post-date {
-    font-size: 0.85rem;
-    color: #6b7280;
-    margin-left: 8px;
-}
-
-.post-content {
-    font-size: 1rem;
-    color: #374151;
-    line-height: 1.6;
-}
-
-textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
-    line-height: 1.6;
-    resize: vertical;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-textarea:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
-}
-
-.action-buttons {
-    display: flex;
-    gap: 8px;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid #f3f4f6;
-    flex-wrap: wrap;
-}
-
-.action-buttons button {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
-    background-color: #f3f4f6;
-    color: #374151;
-}
-
-.action-buttons button:hover {
-    background-color: #e5e7eb;
-}
-
-app-comment-section, .comments-container {
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid #f3f4f6;
-    display: block;
+.comments-wrapper {
+  margin-top: 16px;
+  background-color: #f9f9f9;
 }
 
 .comment-form {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.comment-form input[type="text"] {
-    flex-grow: 1;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 0.95rem;
+.comment-input {
+  flex-grow: 1;
 }
 
-.comment-form input[type="text"]:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+.loading-spinner,
+.no-comments {
+  text-align: center;
+  margin: 20px 0;
+  color: #888;
 }
 
-.comment-form button {
-    padding: 8px 20px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    background-color: #4f46e5;
-    color: white;
-    transition: background-color 0.2s;
+/* NOVO LAYOUT FLEX PARA CADA COMENTÁRIO */
+.comment-layout {
+  display: flex;
+  justify-content: space-between; /* Empurra o corpo e as ações para os lados opostos */
+  align-items: center; /* Alinha verticalmente */
+  width: 100%;
+  gap: 10px;
 }
 
-.comment-form button:hover {
-    background-color: #4338ca;
+.comment-body {
+  flex-grow: 1; /* Faz o corpo do comentário ocupar o espaço disponível */
 }
 
-.comment-form button:disabled {
-    background-color: #a5b4fc;
-    cursor: not-allowed;
+.comment-actions {
+  flex-shrink: 0; /* Impede que a área de ações encolha */
 }
 
-.comment-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+.comment-author a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #3f51b5;
 }
 
-.comment-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 0.95rem;
+.comment-author a:hover {
+  text-decoration: underline;
 }
 
-.comment-item strong a {
-    font-weight: 600;
-    color: #111827;
-    text-decoration: none;
+.comment-text {
+  color: #333;
+  white-space: pre-wrap;
 }
 
-.comment-item strong a:hover {
-    text-decoration: underline;
-}
-
-.comment-item span {
-    color: #374151;
-    word-break: break-word;
-}
-
-.delete-comment-btn {
-    margin-left: auto;
-    background-color: transparent;
-    border: none;
-    color: #9ca3af;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 500;
-    padding: 4px;
-    border-radius: 4px;
-    transition: color 0.2s, background-color 0.2s;
-}
-
-.delete-comment-btn:hover {
-    color: #ef4444;
-    background-color: #fee2e2;
+.delete-button {
+  width: 80px;
+  height: 43px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  font-size: 0.8rem;
 }

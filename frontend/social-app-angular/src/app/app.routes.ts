@@ -12,7 +12,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [authGuard], // Protege a rota e suas filhas
+    canActivate: [authGuard], 
     children: [
       {
         path: '',

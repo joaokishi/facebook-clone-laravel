@@ -1,34 +1,80 @@
 .profile-container {
   max-width: 720px;
-  margin: 2rem auto;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
 }
 
-h1, h2 {
-  margin-bottom: 1rem;
-  color: #222;
+.profile-container h1,
+.profile-container h2 {
+  margin: 0 0 20px 0;
+  color: #1a202c;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-bottom: 2px solid #3182ce;
+  padding-bottom: 10px;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.user-basic-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-basic-info h1 {
+  margin: 0;
+  color: #1a202c;
+  font-size: 1.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 .user-info {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  border-radius: 6px;
-  border: 1px solid #ddd;
+  margin: 10px 0 24px 0;
+  padding: 16px;
+  background-color: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
 }
 
 .loading-text,
 .error-message,
 .empty-message {
-  color: #555;
+  color: #718096;
   font-style: italic;
-  margin: 1rem 0;
+  font-size: 0.95rem;
+  margin: 16px 0;
 }
 
 .error-message {
-  color: #d93025;
+  color: #e53e3e;
+  font-weight: 600;
 }
+
